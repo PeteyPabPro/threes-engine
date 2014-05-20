@@ -10,11 +10,6 @@ public class Left extends AbstractMove {
 		super(previousState);		
 	}
 
-//	@Override
-//	public AbstractMove getInstance(State previousState){
-//		return new Left(previousState);
-//	}	
-
 	@Override
 	protected List<State> getStep1States(State startState) {
 		//Update board

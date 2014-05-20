@@ -13,7 +13,7 @@ import java.util.Map.Entry;
 public abstract class AbstractMove implements Move {
 
 	protected final State previousState;
-	
+
 	public AbstractMove(State previousState){
 		this.previousState = previousState;
 	}	
@@ -79,17 +79,7 @@ public abstract class AbstractMove implements Move {
 		for (State s: step1States){			
 			HoleCard h = getRandomCard(s.getCardStack());
 			step2States.add(new State(s.getBoard(), subtractKey(s.getCardStack(),h), h, s.getProbability()));
-//			if (h instanceof RegularHoleCard) {
-//				step2States.add(new State(s.getBoard(), subtractKey(s.getCardStack(),(RegularHoleCard)h), (RegularHoleCard)h, s.getProbability()));
-//			}
-//			else if (h instanceof AmbiguousHoleCard) {
-//				List<Integer> possibleAdditions = ((AmbiguousHoleCard)h).getPossibleAdditions();
-//				Map<HoleCard, Integer> newStack = subtractKey(s.getCardStack(),h);
-//				for (int i: possibleAdditions){
-//					RegularHoleCard rh = new RegularHoleCard(i);					
-//					step2States.add(new State(s.getBoard(), newStack , rh, s.getProbability()/possibleAdditions.size()));
-//				}
-//			}
+
 		}
 		return step2States;
 	}
@@ -104,17 +94,6 @@ public abstract class AbstractMove implements Move {
 			for (Entry<HoleCard, Integer> e: s.getCardStack().entrySet()){				
 				HoleCard h = e.getKey();
 				step2States.add(new State(s.getBoard(), subtractKey(s.getCardStack(),h), h, (s.getProbability() * e.getValue())/cardCount));
-//				if (h instanceof RegularHoleCard) {
-//					step2States.add(new State(s.getBoard(), subtractKey(s.getCardStack(),(RegularHoleCard)h), (RegularHoleCard)h, (s.getProbability() * e.getValue())/cardCount));
-//				}
-//				else if (h instanceof AmbiguousHoleCard) {
-//					List<Integer> possibleAdditions = ((AmbiguousHoleCard)h).getPossibleAdditions();
-//					Map<HoleCard, Integer> newStack = subtractKey(s.getCardStack(),h);
-//					for (int i: possibleAdditions){
-//						RegularHoleCard rh = new RegularHoleCard(i);					
-//						step2States.add(new State(s.getBoard(), newStack , rh, s.getProbability()/(possibleAdditions.size() * cardCount)));
-//					}
-//				}
 			}
 		}
 		return step2States;

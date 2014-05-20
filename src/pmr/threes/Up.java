@@ -10,11 +10,6 @@ public class Up extends AbstractMove {
 		super(previousState);		
 	}
 
-//	@Override
-//	public AbstractMove getInstance(State previousState){
-//		return new Up(previousState);
-//	}	
-
 	@Override
 	protected List<State> getStep1States(State startState) {
 		//Update board. Up = transpose(right)

@@ -4,7 +4,7 @@ public class Demo {
 	
 	public static void main (String[] args){
 		int depth = (args.length==0?5:Integer.parseInt(args[0]));
-		int[][] board = {{-1,1,3,3},{3,2,-1,1},{2,-1,-1,1},{-1,-1,-1,1}};
+		int[][] board = {{0,1,3,3},{3,2,0,1},{2,0,0,1},{0,0,0,1}};
 		RegularHoleCard holeCard = new RegularHoleCard(2);
 		State state = new State(board, holeCard);	
 		ThreesGame game = new ThreesGame(depth,.1,.9,0);

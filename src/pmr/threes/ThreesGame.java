@@ -53,54 +53,6 @@ public class ThreesGame {
 		return bestMove;		
 	}
 	
-//	public MoveSuggestion findBestMove(List<State> states){ //current state could be ambiguous, so can't return move
-//		Map<Class<? extends Move>, Double> moveVals = new HashMap<Class<? extends Move>, Double>();
-//		List<Class<? extends Move>> types = new ArrayList<Class<? extends Move>>();
-//		types.add(Left.class);
-//		types.add(Right.class);
-//		types.add(Up.class);
-//		types.add(Down.class);
-//		for (Class<? extends Move> t: types){
-//			moveVals.put(t, 0.0);
-//		}
-//		for (State s: states) {						
-//			Move[] options = {new Left(s), new Right(s), new Up(s), new Down(s)};
-//			for (Move m: options){				
-//				double val = evaluateMove(s,s,m,depth, THREAD_DEPTH).getValue() * s.getProbability();
-//				moveVals.put(m.getClass(), moveVals.get(m.getClass()) + val);
-//			}
-//		}
-//		List<Entry<Class<? extends Move>, Double>> moveEntries = new ArrayList<Entry<Class<? extends Move>, Double>>();
-//		for (Entry<Class<? extends Move>, Double> e: moveVals.entrySet()){
-//			moveEntries.add(e);
-//		}
-//		Collections.sort(moveEntries, new Comparator<Entry<Class<? extends Move>, Double>>(){
-//			@Override
-//			public int compare(Entry<Class<? extends Move>, Double> e1,
-//					Entry<Class<? extends Move>, Double> e2) {
-//				return Double.compare(e2.getValue(),e1.getValue()); //sort ascending
-//			}			
-//		});
-//		return new MoveSuggestion(moveEntries.get(0).getKey());
-//		
-//	}
-//	
-//	public class MoveSuggestion {
-//		private Move m;
-//		
-//		public MoveSuggestion(Class<? extends Move> c){
-//			try {
-//				m = c.newInstance();
-//			} catch (InstantiationException | IllegalAccessException e) {
-//				throw new RuntimeException(e);
-//			}
-//		}
-//		
-//		public Move instantiate(State previousState){
-//			return m.getInstance(previousState);
-//		}
-//	}
-
 	private Choice findBestMove(final State root, final State s, final int depth, final int threadDepth) {		
 		if (depth>0){
 			Move[] options = {new Left(s), new Right(s), new Up(s), new Down(s)};

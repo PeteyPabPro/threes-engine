@@ -6,6 +6,5 @@ public interface Move {
 
 	public State[] findEndStatesForSim();
 	
-	//public Move getInstance(State previousState);
 
 }

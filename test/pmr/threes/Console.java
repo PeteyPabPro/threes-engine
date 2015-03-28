@@ -6,6 +6,10 @@ package pmr.threes;
 import java.util.Scanner;
 import java.util.Vector;
 
+/** Simple tester of game with console input
+ * @author Peter Rimshnick
+ *
+ */
 public class Console {
 	
 	public static void main(String[] args){

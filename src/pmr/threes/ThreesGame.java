@@ -17,6 +17,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+/** Represents instance of game. Handles evaluation, optimal move selection, and other
+ * high level concepts in Threes 
+ * @author Peter Rimshnick
+ *
+ */
 public class ThreesGame {
 
 	private final int depth;
@@ -28,6 +33,9 @@ public class ThreesGame {
 	private static final int THREAD_DEPTH = 3;
 	private ExecutorService threadPool;
 
+	/** Construct instance with default parameters
+	 * 
+	 */
 	public ThreesGame(){
 		depth = 5;
 		boardWeight = .33;
@@ -35,6 +43,9 @@ public class ThreesGame {
 		matchableWeight = .33;
 	}
 
+	/** Construct instance with given depth, default other parameters
+	 * @param depth max depth of tree to be searched
+	 */
 	public ThreesGame(int depth){
 		this.depth = depth;
 		boardWeight = .33;
@@ -42,6 +53,12 @@ public class ThreesGame {
 		matchableWeight = .33;
 	}
 
+	/** Constructs instance with given parameters
+	 * @param depth max depth of tree to be searched
+	 * @param boardWeight weight of board score in evaluation criteria
+	 * @param freeCellWeight weight given to outstanding empty cells in evaluation criteria
+	 * @param matchableWeight weight given to having potential matches in evaluation critiera
+	 */
 	public ThreesGame(int depth, double boardWeight, double freeCellWeight, double matchableWeight){
 		this.depth = depth;
 		this.boardWeight = boardWeight;
@@ -49,6 +66,10 @@ public class ThreesGame {
 		this.matchableWeight = matchableWeight;
 	}	
 
+	/** Finds best move given a state
+	 * @param start state
+	 * @return {@link Choice} object containing info on best move found
+	 */
 	public Choice findBestMove(State start){		
 		threadPool = Executors.newCachedThreadPool();
 		Choice bestMove = findBestMove(start, start, depth, THREAD_DEPTH); 
@@ -56,6 +77,13 @@ public class ThreesGame {
 		return bestMove;		
 	}
 	
+	/** Internal method used to find best move. Uses concurrent, bounded, depth-first search.
+	 * @param root root of tree
+	 * @param s current state to be evaluated
+	 * @param depth how deep current search is
+	 * @param threadDepth how much deeper to go before we stop concurrency
+	 * @return best move found
+	 */
 	private Choice findBestMove(final State root, final State s, final int depth, final int threadDepth) {		
 		if (depth>0){
 			Move[] options = {new Left(s), new Right(s), new Up(s), new Down(s)};
@@ -97,6 +125,14 @@ public class ThreesGame {
 
 	}
 
+	/** Evaluates given move choice
+	 * @param root root of tree
+	 * @param s current state
+	 * @param m proposed move
+	 * @param depth how deep search has gone so far
+	 * @param threadDepth how much deeper we go before we stop concurrency
+	 * @return {@link Choice} object representing move and its value
+	 */
 	private Choice evaluateMove(State root, State s, Move m, int depth, int threadDepth){
 		double avg = 0;				
 		State[] endStates = m.findEndStatesForSearch();
@@ -107,6 +143,11 @@ public class ThreesGame {
 		return new Choice(m,avg);		
 	}
 
+	/** Evaluates state based on various heuristics
+	 * @param root root state of search
+	 * @param state current state
+	 * @return score of current state
+	 */
 	private double evaluateState(State root, State state){
 		double boardScore = boardWeight<EPSILON? 0 : getBoardScore(root.getBoard())/getBoardScore(state.getBoard());
 		int freeCellScore = freeCellWeight<EPSILON? 0 : getFreeCellScore(state.getBoard());
@@ -115,6 +156,10 @@ public class ThreesGame {
 		return score;
 	}
 
+	/** Finds score of board
+	 * @param board
+	 * @return score of given board
+	 */
 	public static double getBoardScore(Board board) {
 		double score = 0;
 		for (int[] row: board.getBoardArray()){
@@ -125,6 +170,10 @@ public class ThreesGame {
 		return score;
 	}
 
+	/** Counts number of free cells in board
+	 * @param board
+	 * @return number of free cells in board
+	 */
 	private int getFreeCellScore(Board board) {
 		int freeCount = 0;
 		for (int[] row: board.getBoardArray()){
@@ -135,6 +184,10 @@ public class ThreesGame {
 		return freeCount;
 	}
 
+	/** Counts number of matched cells in board
+	 * @param board
+	 * @return number of matched cells in board
+	 */
 	private int getMatchableScore(Board board) {
 		int[][] boardArray = board.getBoardArray();
 		int score = 0;
@@ -149,14 +202,28 @@ public class ThreesGame {
 		return score;
 	}
 
+	/** Determines whether two cells can be matched based on value
+	 * @param int1 value of cell 1
+	 * @param int2 value of cell 2
+	 * @return true if cells can be matched
+	 */
 	static boolean canMatch(int int1, int int2) {
 		return (int1==int2 && int1>=3) || oneAndTwo(int1, int2);
 	}
 	
+	/** Determines if one cell is 1 and the other is 2
+	 * @param a cell 1 value
+	 * @param b cell 2 value
+	 * @return true if one cell has value 1 and the other has value 2
+	 */
 	protected static boolean oneAndTwo(int a, int b){
 		return (a==2 && b==1) || (a==1 && b==2);
 	}	
 
+	/** Generates random card stack based on available cards left given board
+	 * @param board current board
+	 * @return random card stack given current board
+	 */
 	public static Map<HoleCard,Integer> generateCardStack(Board board) {
 		//Just generate one at random, don't split state space
 		Map<HoleCard, Integer> stack = new HashMap<HoleCard,Integer>();
@@ -173,6 +240,11 @@ public class ThreesGame {
 		return stack;
 	}
 	
+	/** Finds possible hole card values given current board. Hole card values cannot exceed
+	 * 1/8th of current max card on board.
+	 * @param boardArray
+	 * @return
+	 */
 	public static List<Integer> getPossibleAdditions(int[][] boardArray){
 		int maxCard = 1;
 		for (int[] row: boardArray){
@@ -187,6 +259,10 @@ public class ThreesGame {
 		return possibleAdditions;
 	}
 
+	/** Picks a random state from a list based on their probabilities
+	 * @param endStates possible states
+	 * @return random state based on given distribution
+	 */
 	public static State pickState(State[] endStates){
 		double prob = 0;
 		for (State s: endStates){

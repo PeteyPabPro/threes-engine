@@ -3,6 +3,10 @@
  */
 package pmr.threes;
 
+/** Interface for hole cards
+ * @author Peter Rimshnick
+ *
+ */
 public interface HoleCard {
 	
 }

@@ -3,10 +3,17 @@
  */
 package pmr.threes;
 
+/** Used as sentinel to represent end of portion of game tree to be searched
+ * @author Peter Rimshnick
+ *
+ */
 public class NullMove implements Move {
 	
 	private State state;
 	
+	/** Constructs null move from given state
+	 * @param state
+	 */
 	public NullMove(State state){
 		this.state = state;
 	}

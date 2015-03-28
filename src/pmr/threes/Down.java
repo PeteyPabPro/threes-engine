@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
+/** Represents down move
+ * @author Peter Rimshnick
+ *
+ */
 public class Down extends AbstractMove {
 
 	public Down(State previousState) {

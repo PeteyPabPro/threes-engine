@@ -3,10 +3,17 @@
  */
 package pmr.threes;
 
+/** Represents hole card with definite value
+ * @author Peter Rimshnick
+ *
+ */
 public class RegularHoleCard implements HoleCard {
 
 	final int value;
 
+	/** Constructs hole card with given value
+	 * @param value
+	 */
 	public RegularHoleCard(int value){
 		this.value = value;
 	}

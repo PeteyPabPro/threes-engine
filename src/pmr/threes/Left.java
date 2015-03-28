@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
+/** Represents left move
+ * @author Peter Rimshnick
+ *
+ */
 public class Left extends AbstractMove {
 
 	public Left(State previousState) {

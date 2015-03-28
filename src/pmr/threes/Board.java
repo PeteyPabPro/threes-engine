@@ -5,15 +5,26 @@ package pmr.threes;
 
 import java.util.Arrays;
 
+/** Board representation based on dense matrix
+ * @author Peter Rimshnick
+ *
+ */
 public class Board {
 
 	private final int[][] board;
 
+	/** Construct board from 2-d input array
+	 * @param board
+	 */
 	public Board(int[][] board){
 		//this.board = deepCopy(board);
 		this.board = board;
 	}
 
+	/** Produces copy of board
+	 * @param original board
+	 * @return copy of board
+	 */
 	public static int[][] deepCopy(int[][] original){
 		int[][] result = new int[original.length][original[0].length];
 		for (int i = 0; i<original.length; i++){
@@ -22,6 +33,9 @@ public class Board {
 		return result;
 	}
 
+	/** Returns underlying board. No defensive copy made for performance reasons
+	 * @return underlying board array
+	 */
 	public int[][] getBoardArray() {
 		//return deepCopy(board);
 		return board;

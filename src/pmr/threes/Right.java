@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/** Represents move to the right
+ * @author Peter Rimshnick
+ *
+ */
 public class Right extends AbstractMove {
 
 	public Right(State previousState) {

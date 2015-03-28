@@ -3,6 +3,10 @@
  */
 package pmr.threes;
 
+/** Runs demo of game using optimal move choices and monte-carlo simulation
+ * @author Peter Rimshnick
+ *
+ */
 public class Demo {
 	
 	public static void main (String[] args){

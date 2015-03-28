@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/** Represents up move
+ * @author Peter Rimshnick
+ *
+ */
 public class Up extends AbstractMove {
 
 	public Up(State previousState) {

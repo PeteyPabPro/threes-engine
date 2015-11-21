@@ -25,6 +25,7 @@ public class Demo {
 			double time = (double)(System.currentTimeMillis()-start)/1000;
 			System.out.println("Step: " + step++);
 			System.out.println("Last Move: " + currChoice.getMove() + " ("+String.format("%4.2f", time)+" sec)");
+			System.out.println("Current board score: " + ThreesGame.getBoardScore(state.getBoard()));
 			System.out.println("Current state: " + state);
 		}		
 		System.out.println("Final state: " + state + "Score: " + ThreesGame.getBoardScore(state.getBoard()));

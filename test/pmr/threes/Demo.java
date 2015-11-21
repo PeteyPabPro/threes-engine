@@ -10,6 +10,10 @@ package pmr.threes;
 public class Demo {
 	
 	public static void main (String[] args){
+		doIter(args);
+	}
+	
+	public static State doIter(String[] args){
 		int depth = (args.length==0?5:Integer.parseInt(args[0]));
 		int[][] board = {{0,1,3,3},{3,2,0,1},{2,0,0,1},{0,0,0,1}};
 		RegularHoleCard holeCard = new RegularHoleCard(2);
@@ -29,7 +33,8 @@ public class Demo {
 			System.out.println("Current state: " + state);
 		}		
 		System.out.println("Final state: " + state + "Score: " + ThreesGame.getBoardScore(state.getBoard()));
-		
+		return state;
 	}
-
 }
+
+

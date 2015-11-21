@@ -60,7 +60,7 @@ public class Board {
 			for (int n: row){
 				s.append(String.format("%6d", n));
 			}
-			s.append("|\n");
+			s.append("\t|\n");
 		}
 		return s.toString();
 	}
